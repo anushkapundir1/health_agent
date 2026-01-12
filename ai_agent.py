@@ -7,10 +7,10 @@ load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 llm = ChatGroq(
-    model="llama3-70b-8192",
-    api_key=GROQ_API_KEY,
+    groq_api_key=GROQ_API_KEY,
+    model_name="llama3-8b-8192",   # stable model
     temperature=0.3,
-    max_tokens=500
+    max_tokens=1024
 )
 
 def analyze_report(report_text):
@@ -25,5 +25,4 @@ Analyze the following medical report and provide:
 Medical Report:
 {report_text}
 """
-    response = llm.invoke(prompt)
-    return response.content
+    return llm.invoke(prompt).content
