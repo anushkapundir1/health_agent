@@ -1,11 +1,13 @@
 import os
-from groq import Groq
+from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-
+client = OpenAI(
+    api_key=os.getenv("GROQ_API_KEY"),
+    base_url="https://api.groq.com/openai/v1"
+)
 
 def analyze_report(report_text):
     prompt = f"""
@@ -22,11 +24,11 @@ Medical Report:
 {report_text}
 """
 
-    chat = client.chat.completions.create(
+    completion = client.chat.completions.create(
         model="llama3-8b-8192",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.3,
         max_tokens=1024,
     )
 
-    return chat.choices[0].message.content
+    return completion.choices[0].message.content
