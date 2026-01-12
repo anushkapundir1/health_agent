@@ -3,6 +3,7 @@ langchain
 langchain-community
 langchain-groq
 groq
+openai
 supabase
 pdfplumber
 python-dotenv
